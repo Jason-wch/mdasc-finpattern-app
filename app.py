@@ -8,10 +8,7 @@ import plotly.graph_objects as go
 import pandas as pd
 from layout_helper import run_standalone_app
 import os
-from data_prep import
-
-
-
+from data_prep import *
 
 def header_colors():
     return {
