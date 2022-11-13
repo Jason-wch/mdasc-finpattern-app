@@ -78,10 +78,7 @@ def app_page_layout(page_layout,
                         children=[
                             'View on GitHub'
                         ],
-                        href="http://github.com/plotly/dash-bio/"
-                        "blob/master/tests/dashbio_demos/dash-{}/app.py".format(
-                            app_name
-                        ),
+                        href="https://github.com/Jason-wch/mdasc-finpattern-app",
                         style={'color': 'white' if light_logo else 'black',
                                'border': 'solid 1px white' if light_logo else 'solid 1px black'}
                     ),

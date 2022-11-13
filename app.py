@@ -16,6 +16,9 @@ from pages import (
     newsTab,
     aboutTab
 )
+from assets import (
+    __cdl_words as cdl_words
+)
 
 # Configurations
 def header_colors():
@@ -79,14 +82,14 @@ def layout():
                         dcc.Tab(
                             label='Candlestick Pattern',
                             value='candlestick',
-                            children=cdlTab.create_page()
+                            children=cdlTab.create_page(cdl_words)
                         ),
                         
                         # 3D CNN Modeling
                         dcc.Tab(
                             label='3D CNN Modeling',
                             value='cnn',
-                            children=cnnTab.create_page()
+                            children=cnnTab.create_page(cdl_words)
                         )
                     ], style={'height': '50%'})
                 ]),
