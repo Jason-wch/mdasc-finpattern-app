@@ -4,6 +4,9 @@ import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from flask import Flask
+
+from data_prep import parent_path, config_setting
 
 
 def run_standalone_app(
@@ -15,11 +18,14 @@ def run_standalone_app(
     """Run demo app (tests/dashbio_demos/*/app.py) as standalone app."""
     app = dash.Dash(__name__)
     app.scripts.config.serve_locally = True
+    app.css.config.serve_locally = True
     # Handle callback to component with id "fullband-switch"
     app.config['suppress_callback_exceptions'] = True
 
+    app.config.update(config_setting)
+
     # Get all information from filename
-    app_name = 'Finance Pattern'
+    app_name = 'Big Data Analytics in Securities Market: FinPattern'
     if app_name == '':
         app_name = os.path.basename(os.path.dirname(filename))
     app_name = app_name.replace('dash-', '')
@@ -62,7 +68,7 @@ def app_page_layout(page_layout,
                                 src='data:image/png;base64,{}'.format(
                                     base64.b64encode(
                                         open(
-                                            './assets/hku_logo.png', 'rb'
+                                            f'{parent_path}/assets/hku_logo.png', 'rb'
                                         ).read()
                                     ).decode()
                                 ), style={'height':'50000px'}
@@ -78,10 +84,7 @@ def app_page_layout(page_layout,
                         children=[
                             'View on GitHub'
                         ],
-                        href="http://github.com/plotly/dash-bio/"
-                        "blob/master/tests/dashbio_demos/dash-{}/app.py".format(
-                            app_name
-                        ),
+                        href="https://github.com/Jason-wch/mdasc-finpattern-app",
                         style={'color': 'white' if light_logo else 'black',
                                'border': 'solid 1px white' if light_logo else 'solid 1px black'}
                     ),
@@ -90,9 +93,7 @@ def app_page_layout(page_layout,
                         src='data:image/png;base64,{}'.format(
                             base64.b64encode(
                                 open(
-                                    './assets/GitHub-Mark-{}64px.png'.format(
-                                        'Light-' if light_logo else ''
-                                    ),
+                                    f'{parent_path}/assets/GitHub-Mark-{"Light-" if light_logo else ""}64px.png',
                                     'rb'
                                 ).read()
                             ).decode()
