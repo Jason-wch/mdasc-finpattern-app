@@ -1,5 +1,6 @@
 import dash_html_components as html
 import dash_core_components as dcc
+from data_prep import parent_img_path
 
 def create_page(cdl_words):
 
@@ -17,7 +18,7 @@ def create_page(cdl_words):
                 [
                     html.H6("Preparation of 3D data sturcture"),
                     html.Img(
-                        src = '/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/3D_data_structure.png',
+                        src = f'{parent_img_path}/assets/3D_data_structure.png',
                         style = {
                             "width": "70%"
                         }

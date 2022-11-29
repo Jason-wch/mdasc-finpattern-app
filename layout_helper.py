@@ -6,6 +6,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from flask import Flask
 
+from data_prep import parent_path, config_setting
+
 
 def run_standalone_app(
         layout,
@@ -20,14 +22,10 @@ def run_standalone_app(
     # Handle callback to component with id "fullband-switch"
     app.config['suppress_callback_exceptions'] = True
 
-    app.config.update({
-        'url_base_pathname':'/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/',
-        'routes_pathname_prefix':'/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/',
-        'requests_pathname_prefix':'/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/'
-    })
+    app.config.update(config_setting)
 
     # Get all information from filename
-    app_name = 'Finance Pattern'
+    app_name = 'Big Data Analytics in Securities Market: FinPattern'
     if app_name == '':
         app_name = os.path.basename(os.path.dirname(filename))
     app_name = app_name.replace('dash-', '')
@@ -70,7 +68,7 @@ def app_page_layout(page_layout,
                                 src='data:image/png;base64,{}'.format(
                                     base64.b64encode(
                                         open(
-                                            '/home/Fpat/public_html/mdasc-finpattern-app/assets/hku_logo.png', 'rb'
+                                            f'{parent_path}/assets/hku_logo.png', 'rb'
                                         ).read()
                                     ).decode()
                                 ), style={'height':'50000px'}
@@ -95,9 +93,7 @@ def app_page_layout(page_layout,
                         src='data:image/png;base64,{}'.format(
                             base64.b64encode(
                                 open(
-                                    '/home/Fpat/public_html/mdasc-finpattern-app/assets/GitHub-Mark-{}64px.png'.format(
-                                        'Light-' if light_logo else ''
-                                    ),
+                                    f'{parent_path}/assets/GitHub-Mark-{"Light-" if light_logo else ""}64px.png',
                                     'rb'
                                 ).read()
                             ).decode()

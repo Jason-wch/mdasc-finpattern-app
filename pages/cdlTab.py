@@ -1,6 +1,7 @@
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_daq as daq
+from data_prep import parent_img_path
 
 def create_page(cdl_words):
 
@@ -19,11 +20,11 @@ def create_page(cdl_words):
             html.Div(
                 [
                     html.Img(
-                        src = "/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/cdl_basic.png",
+                        src = f"{parent_img_path}/assets/cdl_basic.png",
                         style = {"width": "40%"}
                     ),
                     html.Img(
-                        src = "/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/morning_star.png",
+                        src = f"{parent_img_path}/assets/morning_star.png",
                         style = {'width': "40%"}
                     )
                 ]

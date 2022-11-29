@@ -17,11 +17,17 @@ def create_page():
             Our interim result shows the proposed CNN model outperforms the baseline model which is trained by Logistic Regression with candlestick patterns only. In the future, we would also consider the trading rules, COVID-19, and natural disaster factors, and continue to fine-tune our CNN model to enhance the model performance. We believe our project could provide insight to practitioners to further study the interaction between technical analysis, candlestick patterns, and industry sentiment so as to provide a comprehensive view of stock market movement.
 
             '''),
-            html.Img(
-                className='align-self-center', src='/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/main.png', style={'height': '20%'}),
+            html.Div(
+                html.Img(
+                    className='align-self-center', 
+                    src = f'{parent_img_path}/assets/main.png', 
+                    style={'width': "50%"}
+                ),
+                style = {'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}
+            ),
 
             html.H4(className='what-is',
-                    children='Stock Price'),
+                    children='Stock Price Movement'),
             dcc.Dropdown(id='stock_dropdown', multi=False, clearable=True,
                             options=[{'label': f, 'value': f}
                                     for f in stocks],

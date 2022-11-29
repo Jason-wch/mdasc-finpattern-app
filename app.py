@@ -44,61 +44,75 @@ initial_sequences = {
 def description():
     return 'DASC7600 - Fin Pattern Project'
 
-# Main layout with tabs
 def layout():
     return html.Div(
-        id='forna-body',
-        className='app-body',
-        style={'height': '100vh'},
-        children=[
-            html.Div(
-                id='forna-control-tabs',
-                className='control-tabs',
-                children=[
-                    dcc.Tabs(id='forna-tabs', value='what-is', children=[
-
-                        # Tab - About this project
-                        dcc.Tab(
-                            label='About this Project',
-                            value='what-is',
-                            children=aboutTab.create_page()
-                        ),
-
-                        # Tab - Technical Indicators
-                        dcc.Tab(
-                            label='Technical Indicators',
-                            value='technical-indicators',
-                            children=taTab.create_page()
-                        ),
-                        
-                        # Unexpected News
-                        dcc.Tab(
-                            label='Unexpected News',
-                            value='sentiment',
-                            children=newsTab.create_page()
-                        ),
-                        
-                        # Candlestick Pattern
-                        dcc.Tab(
-                            label='Candlestick Pattern',
-                            value='candlestick',
-                            children=cdlTab.create_page(cdl_words)
-                        ),
-                        
-                        # 3D CNN Modeling
-                        dcc.Tab(
-                            label='3D CNN Modeling',
-                            value='cnn',
-                            children=cnnTab.create_page(cdl_words)
-                        )
-                    ], style={'height': '50%'})
-                ]),
-
-
-            dcc.Store(id='forna-sequences', data=initial_sequences),
-            # dcc.Store(id='forna-custom-colors')
+        id = 'forna-body',
+        className = 'app-body',
+        style = {'height': '100vh'},
+        children = [
+            aboutTab.create_page(),
+            cdlTab.create_page(cdl_words),
+            cnnTab.create_page(cdl_words)
         ]
     )
+
+
+# Main layout with tabs
+# def layout():
+#     return html.Div(
+#         id='forna-body',
+#         className='app-body',
+#         style={'height': '100vh'},
+#         children=[
+#             html.Div(
+#                 id='forna-control-tabs',
+#                 className='control-tabs',
+#                 children=[
+#                     dcc.Tabs(id='forna-tabs', value='what-is', children=[
+
+#                         # Tab - About this project
+#                         dcc.Tab(
+#                             label='About this Project',
+#                             value='what-is',
+#                             children=aboutTab.create_page()
+#                         ),
+
+#                         # Tab - Technical Indicators
+#                         dcc.Tab(
+#                             label='Technical Indicators',
+#                             value='technical-indicators',
+#                             children=taTab.create_page()
+#                         ),
+                        
+#                         # Unexpected News
+#                         dcc.Tab(
+#                             label='Unexpected News',
+#                             value='sentiment',
+#                             children=newsTab.create_page()
+#                         ),
+                        
+#                         # Candlestick Pattern
+#                         dcc.Tab(
+#                             label='Candlestick Pattern',
+#                             value='candlestick',
+#                             children=cdlTab.create_page(cdl_words)
+#                         ),
+                        
+#                         # 3D CNN Modeling
+#                         dcc.Tab(
+#                             label='3D CNN Modeling',
+#                             value='cnn',
+#                             children=cnnTab.create_page(cdl_words)
+#                         )
+#                     ], 
+#                     style={'height': '50%'})
+#                 ]),
+
+
+#             dcc.Store(id='forna-sequences', data=initial_sequences),
+#             # dcc.Store(id='forna-custom-colors')
+#         ]
+#     )
 
 
 def callbacks(_app):
