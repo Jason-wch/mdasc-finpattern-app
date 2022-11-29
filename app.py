@@ -94,16 +94,16 @@ def layout():
                         ),
                         
                         # Candlestick Pattern
-                        dcc.Tab(
-                            label='Candlestick Pattern',
-                            value='candlestick',
-                            children=cdlTab.create_page(cdl_words)
-                        ),
+                        # dcc.Tab(
+                        #     label='Candlestick Pattern',
+                        #     value='candlestick',
+                        #     children=cdlTab.create_page(cdl_words)
+                        # ),
                         
                         # 3D CNN Modeling
                         dcc.Tab(
-                            label='3D CNN Modeling',
-                            value='cnn',
+                            label='Candlestick Pattern & 3D CNN Modeling',
+                            value='cdl_cnn',
                             children=cnnTab.create_page(cdl_words)
                         )
                     ], 
@@ -337,6 +337,88 @@ def callbacks(_app):
             return fig
         else:
             return go.Figure(data=[])
+
+    @_app.callback(
+        Output('cdl-graph', 'figure'),
+        [Input('stock_cdl_dropdown', 'value')],
+        [Input('cdl_pattern_dropdown', 'value')])
+    def updateCdlGraph(f, patterns = 'morning_star'):
+        df_cdl = cnnTab.df_cdl
+        temp = df_cdl[df_cdl['ticker'] == f].tail(200)
+        temp = temp.set_index('report_date')
+        print(patterns)
+
+        if type(patterns) != list:
+            patterns = [patterns]
+
+        annotation_list = [dict(x = ind, y = row['high'], text = row['candlestick_label'].replace('_', ' ').capitalize())\
+                   for ind, row in temp[temp['candlestick_label'].isin(patterns)].iterrows()]
+
+        fig = go.Figure(
+            data = [go.Candlestick(
+                x = temp.index,
+                open = temp['open'],
+                high = temp['high'], 
+                low = temp['low'],
+                close = temp['close'],
+                text = temp['candlestick_label']
+            )]
+        )
+
+        fig.update_layout(
+            xaxis_rangeslider_visible = False,
+            annotations = annotation_list
+        )
+
+        return fig
+
+    @_app.callback(
+        Output('3d-graph', 'figure'),
+        [Input('stock_3d_dropdown', 'value')],
+        [Input('report_date', 'date')])
+    def update3DGraph(f, report_date):
+        df_cdl = cnnTab.df_cdl
+        temp = df_cdl[df_cdl['ticker'] == f]
+        temp = temp.set_index('report_date')
+        annotation = [dict(x = report_date, text = report_date, y = temp['close'].median() / 2)]
+
+        fig = go.Figure(
+            data = [
+                go.Line(
+                    x = temp.index,
+                    y = temp['close']
+                )
+            ]
+        )
+
+        fig.add_vline(x=report_date, line_width=3, line_dash="dash", line_color="green")
+
+        fig.update_layout(
+            xaxis_rangeslider_visible = False,
+            annotations = annotation
+        )
+
+        return fig
+
+    @_app.callback(
+        Output('model-prediction', 'children'),
+        [Input('stock_3d_dropdown', 'value')],
+        [Input('report_date', 'date')])
+    def updateModelPrediction(f, report_date):
+        df_predict = cnnTab.df_predict
+        print(f, report_date)
+
+        temp = df_predict[(df_predict['stock'] == f)\
+             & (df_predict['report_date'] == report_date)]
+        print(temp)
+
+        predict = 'Rise' if temp['predict'].iloc[0] == 1 else 'Drop'
+        label = 'Rise' if temp['label'].iloc[0] == 1 else 'Drop'
+    
+        return [
+            html.Div(f'Model Prediction after {report_date}: {predict}'),
+            html.Div(f'Actual prediction after {report_date}: {label}')
+        ]
 
 
 app = run_standalone_app(layout, callbacks, header_colors, __file__)
