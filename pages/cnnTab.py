@@ -17,7 +17,7 @@ def create_page(cdl_words):
                 [
                     html.H6("Preparation of 3D data sturcture"),
                     html.Img(
-                        src = './assets/3D_data_structure.png',
+                        src = '/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/3D_data_structure.png',
                         style = {
                             "width": "70%"
                         }

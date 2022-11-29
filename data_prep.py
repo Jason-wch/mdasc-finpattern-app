@@ -1,7 +1,8 @@
 import pandas as pd
 import os
 
-stock_dir = './input/Stock Price/'
+# stock_dir = './input/Stock Price/'
+stock_dir  = '/home/Fpat/public_html/mdasc-finpattern-app/input/Stock Price/'
 stock_paths = [f for f in os.listdir(stock_dir) if f != '.DS_Store']
 
 stock_list = []

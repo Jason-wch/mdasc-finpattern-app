@@ -4,6 +4,7 @@ import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from flask import Flask
 
 
 def run_standalone_app(
@@ -15,8 +16,15 @@ def run_standalone_app(
     """Run demo app (tests/dashbio_demos/*/app.py) as standalone app."""
     app = dash.Dash(__name__)
     app.scripts.config.serve_locally = True
+    app.css.config.serve_locally = True
     # Handle callback to component with id "fullband-switch"
     app.config['suppress_callback_exceptions'] = True
+
+    app.config.update({
+        'url_base_pathname':'/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/',
+        'routes_pathname_prefix':'/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/',
+        'requests_pathname_prefix':'/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/'
+    })
 
     # Get all information from filename
     app_name = 'Finance Pattern'
@@ -62,7 +70,7 @@ def app_page_layout(page_layout,
                                 src='data:image/png;base64,{}'.format(
                                     base64.b64encode(
                                         open(
-                                            './assets/hku_logo.png', 'rb'
+                                            '/home/Fpat/public_html/mdasc-finpattern-app/assets/hku_logo.png', 'rb'
                                         ).read()
                                     ).decode()
                                 ), style={'height':'50000px'}
@@ -87,7 +95,7 @@ def app_page_layout(page_layout,
                         src='data:image/png;base64,{}'.format(
                             base64.b64encode(
                                 open(
-                                    './assets/GitHub-Mark-{}64px.png'.format(
+                                    '/home/Fpat/public_html/mdasc-finpattern-app/assets/GitHub-Mark-{}64px.png'.format(
                                         'Light-' if light_logo else ''
                                     ),
                                     'rb'

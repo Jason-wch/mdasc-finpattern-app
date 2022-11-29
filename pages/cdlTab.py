@@ -19,11 +19,11 @@ def create_page(cdl_words):
             html.Div(
                 [
                     html.Img(
-                        src = "./assets/cdl_basic.png",
+                        src = "/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/cdl_basic.png",
                         style = {"width": "40%"}
                     ),
                     html.Img(
-                        src = "./assets/morning_star.png",
+                        src = "/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/morning_star.png",
                         style = {'width': "40%"}
                     )
                 ]

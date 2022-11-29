@@ -18,7 +18,7 @@ def create_page():
 
             '''),
             html.Img(
-                className='align-self-center', src='./assets/main.png', style={'height': '20%'}),
+                className='align-self-center', src='/financial_big_data_analytics/FinPattern/mdasc-finpattern-app/assets/main.png', style={'height': '20%'}),
 
             html.H4(className='what-is',
                     children='Stock Price'),
