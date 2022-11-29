@@ -72,6 +72,15 @@ def app_page_layout(page_layout,
                                         ).read()
                                     ).decode()
                                 ), style={'height':'50000px'}
+                            ),
+                                  html.Img(
+                                src='data:image/png;base64,{}'.format(
+                                    base64.b64encode(
+                                        open(
+                                            f'{parent_path}/assets/dslab_logo.png', 'rb'
+                                        ).read()
+                                    ).decode()
+                                ), style={'height':'50000px'}
                             )],
                         href="/Portal" if standalone else "/dash-bio"
                     ),
