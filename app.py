@@ -3,6 +3,7 @@ from dash.exceptions import PreventUpdate
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_daq as daq
+from plotly.subplots import make_subplots
 
 import plotly.graph_objects as go
 
@@ -420,8 +421,80 @@ def callbacks(_app):
             html.Div(f'Actual prediction after {report_date}: {label}')
         ]
 
+    @_app.callback(
+        Output('dd-output-container', 'children'),
+        Input('conf-dropdown', 'value')
+    )
+    def update_output(value):
+        return     html.Div(
+                html.Img(
+                    className='align-self-center', 
+                    src = f'{parent_img_path}/assets/'+value+'.png', 
+                    style={'width': "25%"}
+                ))
+
+    @_app.callback(
+    Output('feature-graph', 'figure'),
+     Input('feature-dropdown','value'))
+
+#Figure Update
+    def update_figure(feature):
+        filtered_df = feature_df[feature_df['Attribute'].isin(feature)]
+        fig = go.Figure(go.Bar(x=filtered_df['Attribute'], y=filtered_df['Importance']))
+        fig.update_xaxes(title_text="Features")
+        # Set y-axes titles
+        fig.update_yaxes(title_text="Importance")
+        fig.update_layout(
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            legend={'x': 0, 'y': 1},
+            hovermode='closest'
+        )  
+                        
+        return fig
+        
+    @_app.callback(
+    Output('covid-graph', 'figure'),
+     Input('covid-dropdown','value'))
+#Figure Update
+    def update_figure(locations):
+        filtered_df = covid_df[covid_df['location'] == locations]
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        fig.add_scatter(x=filtered_df['date'], y=filtered_df['total_cases'], name='Total Cases')
+        fig.add_scatter(x=filtered_df['date'], y=filtered_df['total_deaths'], name='Total Deaths', secondary_y=True)
+        fig.update_xaxes(title_text="Date")
+        # Set y-axes titles
+        fig.update_yaxes(title_text="# of Cases", secondary_y=False)
+        fig.update_yaxes(title_text="# of Deaths", secondary_y=True)
+
+        fig.update_layout(
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            legend={'x': 0, 'y': 1},
+            hovermode='closest'
+        )  
+        return fig
+    @_app.callback(
+    Output('disaster-graph', 'figure'),
+    Input('disaster-dropdown','value'))
+#Figure Update
+    def update_figure(continents):
+        filtered_df = disaster_df[disaster_df['Continent'] == continents]
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        fig.add_scatter(x=filtered_df['date'], y=filtered_df['Total Deaths'], name='Total Deaths')
+        fig.update_xaxes(title_text="Date")
+        # Set y-axes titles
+        fig.update_yaxes(title_text="# of Deaths", secondary_y=False)
+
+        fig.update_layout(
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            legend={'x': 0, 'y': 1},
+            hovermode='closest'
+        )  
+        return fig
 
 app = run_standalone_app(layout, callbacks, header_colors, __file__)
+app.title = 'FinPattern'
+app._favicon = (f'{parent_path}/dslab_logo.png')
+
 server = app.server
 
 if __name__ == '__main__':
