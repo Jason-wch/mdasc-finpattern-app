@@ -77,7 +77,7 @@ def app_page_layout(page_layout,
                                 src='data:image/png;base64,{}'.format(
                                     base64.b64encode(
                                         open(
-                                            f'{parent_path}/assets/dslab_logo.png', 'rb'
+                                            f'{parent_path}/assets/dslab_base.png', 'rb'
                                         ).read()
                                     ).decode()
                                 ), style={'height':'50000px'}
