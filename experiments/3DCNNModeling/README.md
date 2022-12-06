@@ -12,4 +12,4 @@ please download the dataset via the following link:
 After downloading the data, please unzip the file. Copy & paste all the subfolders inside the 'data' folder like 'ta', 'Stock Price' and 'news' onto the current directory (Same level as this readme doc.)
 
 # Credit
-[@Timothy] (https://github.com/Timlo512)
+[@Timothy](https://github.com/Timlo512)
