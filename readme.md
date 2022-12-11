@@ -9,4 +9,4 @@ In this project, we will explore new techniques and approaches to estimate the m
 @Valent
 @Timothy
 
-Special thanks to our supervisor @Dr Adela Lau and HKU SAAS Data Science Lab for the opportunity of conducting htis project
+Special thanks to our supervisor @Dr Adela Lau and HKU SAAS Data Science Lab for the opportunity of conducting this project
